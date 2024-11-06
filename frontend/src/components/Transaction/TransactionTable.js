@@ -150,7 +150,7 @@ function TransactionTable() {
       </div>
       <div class="row">
         <div class="col-md-12">
-          <div class="card table-responsive">
+          <div class="card table-responsive shadow-lg mb-5">
             <table class="table table-striped table-bordered  ">
               <thead>
                 <tr>
