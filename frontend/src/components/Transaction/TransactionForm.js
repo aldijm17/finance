@@ -121,8 +121,8 @@ function TransactionForm() {
           </button>
         </div>
       </div>
-      <div className="card p-4 shadow-sm">
-        <h2 className="text-center mb-4">Tambah Transaksi Baru</h2>
+      <div className="card p-4 shadow-sm fs-5">
+        <h2 className="text-center mb-4">Tambah Data Baru</h2>
 
         {error && <Alert variant="danger">{error}</Alert>}
 

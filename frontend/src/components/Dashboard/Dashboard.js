@@ -30,10 +30,11 @@ function Dashboard() {
 
   return (
     <div class="container">
+      <h1 class="text-center m-4">Rekap Keuangan</h1>
       <div class="card shadow-lg mb-4 mt-4">
         <div class="card-body">
           <div class="row">
-            <h1 class="text-center mb-3">Keuangan</h1>
+            <h2 class="mb-3">Rekap Pemasukan/Pengeluaran</h2>
             <div class="col-md-6">
               <DashboardCard title="Total Saldo" value={summary.totalSaldo} />
               <DashboardCard
