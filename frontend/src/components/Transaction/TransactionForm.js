@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { transactionService } from '../../services/api';
-import { Form, Button, Container, Row, Col, Alert, Card } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 
 function TransactionForm() {
   const navigate = useNavigate();
+  const goToTransactionForm = () => {
+    navigate('/'); // Navigates to the TransactionForm page
+    window.location.reload();
+  };
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   
@@ -43,11 +48,10 @@ function TransactionForm() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     if (name === 'pemasukan' || name === 'pengeluaran') {
       const numValue = value === '' ? 0 : parseFloat(value);
       if (isNaN(numValue)) return;
-      
+
       setFormData((prev) => ({
         ...prev,
         [name]: numValue,
@@ -75,7 +79,7 @@ function TransactionForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
+
     const validationError = validateForm();
     if (validationError) {
       setError(validationError);
@@ -86,6 +90,7 @@ function TransactionForm() {
       setLoading(true);
       await transactionService.createTransaction(formData);
       navigate('/');
+      window.location.reload(); // Refreshes the page
     } catch (err) {
       setError(err.response?.data?.message || 'Terjadi kesalahan saat menyimpan transaksi');
     } finally {
@@ -108,47 +113,55 @@ function TransactionForm() {
   };
 
   return (
-    <Container className="my-4">
-      <Card className="p-4 shadow-sm">
+    <div className="container my-4">
+      <div className="row mb-4">
+        <div className="">
+          <button onClick={goToTransactionForm} className="btn btn-danger col-md-12 fs-5 shadow-lg">
+            Kembali
+          </button>
+        </div>
+      </div>
+      <div className="card p-4 shadow-sm">
         <h2 className="text-center mb-4">Tambah Transaksi Baru</h2>
-        
+
         {error && <Alert variant="danger">{error}</Alert>}
 
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="formBulan" className="mb-3">
-            <Form.Label>Bulan *</Form.Label>
-            <Form.Control
-              as="select"
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label>Bulan *</label>
+            <select
+              className="form-control"
               name="bulan"
               value={formData.bulan}
               onChange={handleChange}
               required
             >
-            <option value="">Bulan</option>
+              <option value="">Bulan</option>
               {bulanOptions.map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>
               ))}
-            </Form.Control>
-          </Form.Group>
+            </select>
+          </div>
 
-          <Form.Group controlId="formNama" className="mb-3">
-            <Form.Label>Nama Transaksi *</Form.Label>
-            <Form.Control
+          <div className="mb-3">
+            <label>Nama Transaksi *</label>
+            <input
               type="text"
+              className="form-control"
               name="nama"
               value={formData.nama}
               onChange={handleChange}
               placeholder="Contoh: DP Proyek Website"
               required
             />
-          </Form.Group>
+          </div>
 
-          <Form.Group controlId="formJenis" className="mb-3">
-            <Form.Label>Jenis Transaksi *</Form.Label>
-            <Form.Control
-              as="select"
+          <div className="mb-3">
+            <label>Jenis Transaksi *</label>
+            <select
+              className="form-control"
               name="jenis"
               value={formData.jenis}
               onChange={handleChange}
@@ -160,91 +173,87 @@ function TransactionForm() {
                   {option}
                 </option>
               ))}
-            </Form.Control>
-          </Form.Group>
+            </select>
+          </div>
 
-          <Row className="mb-3">
-            <Col md={6}>
-              <Form.Group controlId="formPemasukan">
-                <Form.Label>Pemasukan</Form.Label>
-                <Form.Control
-                  type="number"
-                  name="pemasukan"
-                  value={formData.pemasukan}
-                  onChange={handleChange}
-                  min="0"
-                  step="0.01"
-                  placeholder="Rp"
-                  disabled={formData.pengeluaran > 0}
-                />
-              </Form.Group>
-            </Col>
-            <Col md={6}>
-              <Form.Group controlId="formPengeluaran">
-                <Form.Label>Pengeluaran</Form.Label>
-                <Form.Control
-                  type="number"
-                  name="pengeluaran"
-                  value={formData.pengeluaran}
-                  onChange={handleChange}
-                  min="0"
-                  step="0.01"
-                  placeholder="Rp"
-                  disabled={formData.pemasukan > 0}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
+          <div className="row mb-3">
+            <div className="col-md-6">
+              <label>Pemasukan</label>
+              <input
+                type="number"
+                className="form-control"
+                name="pemasukan"
+                value={formData.pemasukan}
+                onChange={handleChange}
+                min="0"
+                step="0.01"
+                placeholder="Rp"
+                disabled={formData.pengeluaran > 0}
+              />
+            </div>
+            <div className="col-md-6">
+              <label>Pengeluaran</label>
+              <input
+                type="number"
+                className="form-control"
+                name="pengeluaran"
+                value={formData.pengeluaran}
+                onChange={handleChange}
+                min="0"
+                step="0.01"
+                placeholder="Rp"
+                disabled={formData.pemasukan > 0}
+              />
+            </div>
+          </div>
 
-          <Form.Group controlId="formTanggal" className="mb-3">
-            <Form.Label>Tanggal *</Form.Label>
-            <Form.Control
+          <div className="mb-3">
+            <label>Tanggal *</label>
+            <input
               type="date"
+              className="form-control"
               name="tanggal"
               value={formData.tanggal}
               onChange={handleChange}
               required
             />
-          </Form.Group>
+          </div>
 
-          <Form.Group controlId="formKeterangan" className="mb-3">
-            <Form.Label>Keterangan</Form.Label>
-            <Form.Control
-              as="textarea"
+          <div className="mb-3">
+            <label>Keterangan</label>
+            <textarea
+              className="form-control"
               name="keterangan"
               value={formData.keterangan}
               onChange={handleChange}
-              rows={3}
+              rows="3"
               placeholder="Tambahkan keterangan transaksi (opsional)"
             />
-          </Form.Group>
+          </div>
 
-          <Form.Group controlId="formBuktiTransfer" className="mb-3">
-            <Form.Label>Bukti Transfer</Form.Label>
-            <Form.Control
+          <div className="mb-3">
+            <label>Bukti Transfer</label>
+            <input
               type="text"
+              className="form-control"
               name="buktiTransfer"
               value={formData.buktiTransfer}
               onChange={handleChange}
               placeholder="Link atau nomor referensi bukti transfer"
             />
-          </Form.Group>
+          </div>
 
           <div className="d-flex justify-content-end">
             <Button variant="secondary" onClick={handleReset} className="me-2">
               Reset
             </Button>
-            <Button
-              type="submit"
-              variant="primary"
-              disabled={loading}
-            >
+            <Button type="submit" variant="primary" disabled={loading}>
               {loading ? 'Menyimpan...' : 'Simpan Transaksi'}
             </Button>
           </div>
-        </Form>
-      </Card>
-    </Container>
+        </form>
+      </div>
+    </div>
   );
 }
 
