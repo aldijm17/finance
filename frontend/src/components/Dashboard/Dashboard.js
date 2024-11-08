@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { transactionService } from "../../services/api";
 import DashboardCard from "./DashboardCard";
 import "bootstrap/dist/css/bootstrap.min.css";
+// import TransactionForm from "../Transaction/TransactionForm";
+import TransactionTable from "../Transaction/TransactionTable";
 
 function Dashboard() {
   const [summary, setSummary] = useState({
@@ -75,6 +77,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
+        <TransactionTable/>
       </div>
     </div>
   );
