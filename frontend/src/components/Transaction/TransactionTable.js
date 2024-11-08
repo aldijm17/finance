@@ -83,7 +83,7 @@ function TransactionTable() {
           <div class="row">
             <div class="col-md-12">
               <div class="mb-4">
-                <h2 class="">Data keuangan</h2>
+                <h2 class="">Data keuangan test</h2>
                 <div class="">
                   <div>
                     <label class="">Bulan</label>
