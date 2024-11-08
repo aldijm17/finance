@@ -26,8 +26,8 @@ function App() {
         /> <
         Route path = "/add"
         element = { < TransactionForm / > }
-        /> <
-        /Routes> <
+        /> < /
+        Routes > <
         /BrowserRouter>
     );
 }
