@@ -1,26 +1,33 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const navigate = useNavigate();
 
-    // Fungsi untuk menangani form submit
     const handleLogin = async (e) => {
         e.preventDefault();
 
         try {
-            // Kirim data login ke backend
             const response = await axios.post('http://localhost:5000/api/login', { email, password });
             const { token } = response.data;
 
-            // Simpan token di localStorage dan tampilkan pesan sukses
-            localStorage.setItem('token', token);
-            setMessage('Login berhasil!');
+            if (token) {
+                localStorage.setItem('token', token);
+                setMessage('Login berhasil!');
+                navigate('/dashboard');
+            } else {
+                setMessage('Login gagal. Token tidak ditemukan.');
+            }
         } catch (error) {
-            // Tampilkan pesan error jika login gagal
-            setMessage('Login gagal. Periksa email atau password Anda.');
+            if (error.response && error.response.status === 401) {
+                setMessage('Login gagal. Periksa email atau password Anda.');
+            } else {
+                setMessage('Terjadi masalah jaringan atau server. Silakan coba lagi nanti.');
+            }
         }
     };
 
