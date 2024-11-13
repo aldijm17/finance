@@ -11,8 +11,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/" element={<Dashboard />} />
         <Route path="/transactions" element={<TransactionTable />} />
         <Route path="/add" element={<TransactionForm />} />
       </Routes>

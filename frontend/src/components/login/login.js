@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from 'react-router-dom';
+import '../../style.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -32,33 +34,38 @@ const Login = () => {
     };
 
     return (
-        <div style={{ maxWidth: '400px', margin: '0 auto', textAlign: 'center' }}>
-            <h2>Login</h2>
+        <div  style={{ maxWidth: '400px', margin: '0 auto',border:'solid', marginTop:'180px',padding:'20px',borderRadius:'10px',color:'#28fcb4',
+            boxShadow:'0px 5px 10px black'
+        }}>
+            <h2 style={{ textAlign:'center', color:'black' }}>Login</h2>
             <form onSubmit={handleLogin}>
                 <div style={{ marginBottom: '15px' }}>
-                    <label>Email:</label>
+                    <label className='text-black'>Email:</label>
                     <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        style={{ width: '100%', padding: '8px', margin: '5px 0' }}
+                        placeholder='Masukan Email'
+                        style={{ width: '100%', padding: '10px', margin: '10px 0 ', borderRadius:'20px',}}
                     />
                 </div>
                 <div style={{ marginBottom: '15px' }}>
-                    <label>Password:</label>
+                    <label  className='text-black'>Password:</label>
                     <input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        style={{ width: '100%', padding: '8px', margin: '5px 0' }}
+                        placeholder='Maksukan Password'
+                        style={{ width: '100%', padding: '8px', margin: '5px 0',borderRadius:'20px',}}
                     />
                 </div>
-                <button type="submit" style={{ padding: '10px 20px' }}>Login</button>
+               <center> <button type="submit" style={{ padding: '10px 20px', backgroundColor:'#883cec',color:'white'}} className='btn btn'>Login</button></center>
             </form>
             {message && <p>{message}</p>}
         </div>
+    
     );
 };
 
