@@ -40,7 +40,7 @@ const Login = () => {
         <div className="container-fluid d-flex align-items-center justify-content-center vh-100">
             <div className="card cardlogin">
                 <div className="card-body">
-                    <h3 className="text-center mb-4">Login</h3>
+                    <h3 className="text-center mb-4 fs-2 headtext"><b>Login</b></h3>
                     <form onSubmit={handleLogin}>
                         <div className="mb-3">
                             <label htmlFor="username" className="form-label">Username</label>
@@ -73,7 +73,7 @@ const Login = () => {
                             className="button w-100"
                             disabled={loading}
                         >
-                            {loading ? 'Loading...' : 'Sign In'}
+                            {loading ? 'Loading...' : 'LogIn'}
                         </button>
                         {message && (
                             <div className="alert alert-danger mt-3" role="alert">

@@ -92,17 +92,13 @@ function TransactionTable() {
           </button>
         </div>
       </div>
-      
       <div class="card mb-4 shadow-lg">
         <div class="card-body">
-          <div class="row">
+          <div class="row mb-3">
+            <h2>Filter Data</h2>
             <div class="col-md-6">
-              <div class="mb-4">
-                <h2 class="">Filter Data</h2>
-                <div class="">
-                  <div>
-                    <label class="">Bulan</label>
-                    <select
+            <label class="">Bulan</label>
+              <select
                       name="bulan"
                       value={filters.bulan}
                       onChange={handleFilterChange}
@@ -127,15 +123,10 @@ function TransactionTable() {
                           {month}
                         </option>
                       ))}
-                    </select>
-                  </div>
-                </div>
-              </div>
+              </select>         
             </div>
-          </div>
-          <div class="row mb-3">
             <div class="col-md-6">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="">
                 Jenis Transaksi
               </label>
               <select
@@ -150,7 +141,6 @@ function TransactionTable() {
               </select>
             </div>
           </div>
-
           <div class="row mb-3">
             <div class="col-md-6">
               <label className="block text-sm font-medium text-gray-700 mb-1">

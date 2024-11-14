@@ -7,4 +7,4 @@ Revisi Tanggal 12-November-2024
 
 Tambahan tanggal 14-November-2024
 1.migrasi database.
-2.Seeder.
+//2.Seeder.
