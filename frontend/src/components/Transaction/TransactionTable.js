@@ -9,12 +9,14 @@ function TransactionTable() {
   const goToTransactionForm = () => {
     navigate('/add'); // Navigates to the TransactionForm page
   };
+  
   const [transactions, setTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [filters, setFilters] = useState({
     bulan: "",
     tanggalMin: "",
     tanggalMax: "",
+    jenisTransaksi: "", // Filter baru untuk jenis transaksi
   });
 
   const applyFilters = useCallback(() => {
@@ -37,6 +39,14 @@ function TransactionTable() {
       filteredData = filteredData.filter(
         (transaction) =>
           new Date(transaction.tanggal) <= new Date(filters.tanggalMax)
+      );
+    }
+
+    if (filters.jenisTransaksi) {
+      filteredData = filteredData.filter(
+        (transaction) =>
+          (filters.jenisTransaksi === "Pemasukan" && transaction.pemasukan > 0) ||
+          (filters.jenisTransaksi === "Pengeluaran" && transaction.pengeluaran > 0)
       );
     }
 
@@ -86,9 +96,9 @@ function TransactionTable() {
       <div class="card mb-4 shadow-lg">
         <div class="card-body">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
               <div class="mb-4">
-                <h2 class="">Data keuangan test</h2>
+                <h2 class="">Filter Data</h2>
                 <div class="">
                   <div>
                     <label class="">Bulan</label>
@@ -114,8 +124,7 @@ function TransactionTable() {
                         "Desember",
                       ].map((month, index) => (
                         <option key={index} value={month}>
-                          {" "}
-                          {month}{" "}
+                          {month}
                         </option>
                       ))}
                     </select>
@@ -124,6 +133,24 @@ function TransactionTable() {
               </div>
             </div>
           </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Jenis Transaksi
+              </label>
+              <select
+                name="jenisTransaksi"
+                value={filters.jenisTransaksi}
+                onChange={handleFilterChange}
+                class="form-select"
+              >
+                <option value="">Semua</option>
+                <option value="Pemasukan">Pemasukan</option>
+                <option value="Pengeluaran">Pengeluaran</option>
+              </select>
+            </div>
+          </div>
+
           <div class="row mb-3">
             <div class="col-md-6">
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -151,12 +178,15 @@ function TransactionTable() {
               />
             </div>
           </div>
+
+         
         </div>
       </div>
+
       <div class="row">
         <div class="col-md-12">
           <div class="card table-responsive shadow-lg mb-5">
-            <table class="table table-striped table-bordered  ">
+            <table class="table table-striped table-bordered">
               <thead>
                 <tr>
                   <th style={{ backgroundColor: "#28fcb4" }} scope="col">
