@@ -9,11 +9,11 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false
       },
       pemasukan: {
-        type: Sequelize.DECIMAL(10, 2),
+        type: Sequelize.DECIMAL(100, 2),
         defaultValue: 0
       },
       pengeluaran: {
-        type: Sequelize.DECIMAL(10, 2),
+        type: Sequelize.DECIMAL(100, 2),
         defaultValue: 0
       },
       keterangan: {

@@ -1,0 +1,5 @@
+13-11
+1.membuat backend login dan menggabungkannya dengan project yang Finance
+2.menghubungkan seeder dengan database (config/database.js)
+  terjadi masalah dimana "const db = require('../config/database');"
+  dibagian seeder tidak terdefenisi oleh database.js ("db") yang di request oleh seeder.

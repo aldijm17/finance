@@ -1,6 +1,8 @@
+require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
 const db = require("./models");
+const authRoutes = require("./routes/auth.routes");
 
 const app = express();
 
@@ -8,6 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Sinkronisasi database
 db.sequelize.sync()
   .then(() => {
     console.log("Database synchronized");
@@ -16,6 +19,8 @@ db.sequelize.sync()
     console.log("Failed to sync database: " + err.message);
   });
 
+// Daftarkan route auth
+app.use("/api/auth", authRoutes);
 require("./routes/transaction.routes")(app);
 
 const PORT = process.env.PORT || 5000;

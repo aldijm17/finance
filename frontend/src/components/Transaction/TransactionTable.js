@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { transactionService } from "../../services/api";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from 'react-router-dom';
+import AuthService from '../../services/api';
 
 function TransactionTable() {
   const navigate = useNavigate();
@@ -68,6 +69,10 @@ function TransactionTable() {
     }));
   };
 
+  const handleLogout = () => {
+    AuthService.logout();
+    window.location.reload(); // Refresh halaman setelah logout
+};
   return (
     <div class="container">
       <div class="row mb-4 ">
@@ -202,6 +207,9 @@ function TransactionTable() {
               </tbody>
             </table>
           </div>
+          <button onClick={handleLogout} class="col-md-12 mb-4 shadow-lg btn btn-danger fs-5">
+            Logout
+            </button>
         </div>
       </div>
     </div>
