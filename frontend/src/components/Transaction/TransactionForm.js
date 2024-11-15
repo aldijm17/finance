@@ -12,7 +12,6 @@ function TransactionForm() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  
   const [formData, setFormData] = useState({
     bulan: '',
     nama: '',
@@ -21,8 +20,9 @@ function TransactionForm() {
     keterangan: '',
     jenis: '',
     tanggal: '',
-    buktiTransfer: ''
+    buktiTransfer: null, // Set to null initially, as it's no longer a text
   });
+  const [preview, setPreview] = useState('');
 
   const jenisOptions = [
     'Pendapatan Jasa',
@@ -31,19 +31,10 @@ function TransactionForm() {
     'Beban Layanan',
     'Beban Gaji Karyawan'
   ];
+  
   const bulanOptions = [
-    'Januari',
-    'Februari',
-    'Maret',
-    'April',
-    'Mei',
-    'Juni',
-    'Juli',
-    'Agustus',
-    'September',
-    'Oktober',
-    'November',
-    'Desember'
+    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 
+    'Agustus', 'September', 'Oktober', 'November', 'Desember'
   ];
 
   const handleChange = (e) => {
@@ -57,6 +48,18 @@ function TransactionForm() {
         [name]: numValue,
         [name === 'pemasukan' ? 'pengeluaran' : 'pemasukan']: 0
       }));
+    } else if (name === 'buktiTransfer') {
+      const file = e.target.files[0];
+      if (file) {
+        setFormData((prev) => ({
+          ...prev,
+          buktiTransfer: file,
+        }));
+
+        // Generate a preview URL for the selected image
+        const objectUrl = URL.createObjectURL(file);
+        setPreview(objectUrl);
+      }
     } else {
       setFormData((prev) => ({
         ...prev,
@@ -73,6 +76,9 @@ function TransactionForm() {
     if (formData.pemasukan === 0 && formData.pengeluaran === 0) {
       return 'Masukkan nilai pemasukan atau pengeluaran';
     }
+    if (!formData.buktiTransfer) {
+      return 'Bukti transfer harus diunggah';
+    }
     return '';
   };
 
@@ -88,7 +94,18 @@ function TransactionForm() {
 
     try {
       setLoading(true);
-      await transactionService.createTransaction(formData);
+      
+      // Prepare form data for submission
+      const data = new FormData();
+      for (const key in formData) {
+        if (formData[key] instanceof File) {
+          data.append(key, formData[key]);
+        } else {
+          data.append(key, formData[key]);
+        }
+      }
+
+      await transactionService.createTransaction(data);
       navigate('/');
       window.location.reload(); // Refreshes the page
     } catch (err) {
@@ -107,8 +124,9 @@ function TransactionForm() {
       keterangan: '',
       jenis: '',
       tanggal: '',
-      buktiTransfer: ''
+      buktiTransfer: null,
     });
+    setPreview('');
     setError('');
   };
 
@@ -232,15 +250,16 @@ function TransactionForm() {
           </div>
 
           <div className="mb-3">
-            <label>Bukti Transfer</label>
+            <label>Bukti Transfer *</label>
             <input
-              type="text"
+              type="file"
               className="form-control"
               name="buktiTransfer"
-              value={formData.buktiTransfer}
               onChange={handleChange}
-              placeholder="Link atau nomor referensi bukti transfer"
+              accept="image/*"
+              required
             />
+            {preview && <img src={preview} alt="Preview" className="img-fluid mt-2" />}
           </div>
 
           <div className="d-flex justify-content-end">
