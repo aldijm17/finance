@@ -3,10 +3,9 @@ const { Sequelize, DataTypes } = require("sequelize");
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
-  dialect: dbConfig.dialect,
-  pool: dbConfig.pool,
-  logging: false // Optional: menonaktifkan log query di konsol
+  dialect: dbConfig.dialect
 });
+
 
 // Inisialisasi objek db
 const db = {};
