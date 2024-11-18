@@ -3,12 +3,27 @@ const Transaction = db.transactions;
 
 exports.create = async (req, res) => {
   try {
-    const transaction = await Transaction.create(req.body);
-    res.json(transaction);
-  } catch (error) {
-    res.status(400).json({
-      message: error.message || "Error occurred while creating transaction."
+    console.log("Request body:", req.body);
+    console.log("Uploaded file:", req.file);
+
+    const { bulan, nama, pemasukan, pengeluaran, keterangan, jenis, tanggal } = req.body;
+    const buktiTransfer = req.file ? req.file.filename : null;
+
+    const transaction = await Transaction.create({
+      bulan,
+      nama,
+      pemasukan,
+      pengeluaran,
+      keterangan,
+      jenis,
+      tanggal,
+      buktiTransfer
     });
+
+    res.status(201).json(transaction);
+  } catch (error) {
+    console.error("Error while creating transaction:", error.message);
+    res.status(500).json({ message: error.message || "Internal Server Error" });
   }
 };
 
@@ -17,9 +32,7 @@ exports.findAll = async (req, res) => {
     const transactions = await Transaction.findAll();
     res.json(transactions);
   } catch (error) {
-    res.status(500).json({
-      message: error.message || "Error occurred while retrieving transactions."
-    });
+    res.status(500).json({ message: error.message || "Error occurred while retrieving transactions." });
   }
 };
 

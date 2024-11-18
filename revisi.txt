@@ -8,3 +8,16 @@ Revisi Tanggal 12-November-2024
 Tambahan tanggal 14-November-2024
 1.migrasi database.
 //2.Seeder.
+
+################
+18-November-2024
+Update Revisi Tanggal 14-November-2024 
+//1. Halaman Login perbaiki.
+//2. bagian tambah data bagian bukti transfer di ubah menjadi gambar bukti transfer.
+//3. Bagian Filter data Tambahkan filter untuk pemasukan, pengeluaran atau jenis pemasukan/ jenis pengeluaran.
+//4. Pada tabel di bagian bukti transfer ada icon yang akan memunculkan modal/popup gambar bukti transfer.
+//5. Tambahkan field baru(pemasukan/pengeluaran) di tabel transaksi.
+
+Tambahan tanggal 14-November-2024
+1.migrasi database.
+//2.Seeder.
