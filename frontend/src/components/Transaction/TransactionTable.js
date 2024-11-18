@@ -3,7 +3,7 @@ import { transactionService } from "../../services/api";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from 'react-router-dom';
 import AuthService from '../../services/api';
-import '../../TableStyle.css';
+import '../../App.js';
 
 function TransactionTable() {
   const navigate = useNavigate();
@@ -97,7 +97,7 @@ function TransactionTable() {
     <div className="container">
       <div className="row mb-4 ">
         <div className="">
-          <button onClick={goToTransactionForm} className=" button btn col-md-12 fs-5">
+          <button onClick={goToTransactionForm} className=" addbutton btn col-md-12 fs-5">
               Tambah Data
           </button>
         </div>
