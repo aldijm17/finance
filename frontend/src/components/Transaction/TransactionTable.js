@@ -3,6 +3,7 @@ import { transactionService } from "../../services/api";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from 'react-router-dom';
 import AuthService from '../../services/api';
+import '../../TableStyle.css';
 
 function TransactionTable() {
   const navigate = useNavigate();
@@ -96,7 +97,7 @@ function TransactionTable() {
     <div className="container">
       <div className="row mb-4 ">
         <div className="">
-          <button onClick={goToTransactionForm} className="btn btn-primary col-md-12 fs-5 shadow-lg">
+          <button onClick={goToTransactionForm} className=" button btn col-md-12 fs-5">
               Tambah Data
           </button>
         </div>
@@ -191,6 +192,7 @@ function TransactionTable() {
                   <th style={{ backgroundColor: "#28fcb4" }} scope="col">Nama</th>
                   <th style={{ backgroundColor: "#28fcb4" }} scope="col">Pemasukan</th>
                   <th style={{ backgroundColor: "#28fcb4" }} scope="col">Pengeluaran</th>
+                  <th style={{ backgroundColor: "#28fcb4" }} scope="col">Pengeluaran/Pemasukan</th>
                   <th style={{ backgroundColor: "#28fcb4" }} scope="col">Keterangan</th>
                   <th style={{ backgroundColor: "#28fcb4" }} scope="col">Jenis Pemasukan/Pengeluaran</th>
                   <th style={{ backgroundColor: "#28fcb4" }} scope="col">Tanggal</th>
@@ -205,16 +207,26 @@ function TransactionTable() {
                     <td>{transaction.nama}</td>
                     <td>{transaction.pemasukan}</td>
                     <td>{transaction.pengeluaran}</td>
+                    <td>
+                      {transaction.pemasukan > 0
+                        ? "Pemasukan"
+                        : transaction.pengeluaran > 0
+                        ? "Pengeluaran"
+                        : "Tidak Ada"}
+                    </td>
                     <td>{transaction.keterangan}</td>
                     <td>{transaction.jenis}</td>
                     <td>{new Date(transaction.tanggal).toLocaleDateString()}</td>
-                    <td>
+                    <td className="text-center">
                       {transaction.buktiTransfer && (
                         <button 
-                          className="btn btn-primary btn-sm"
+                          className="btn shadow-lg text-white"
+                          style={{
+                            backgroundColor:'#883cec',
+                          }}
                           onClick={() => handleImageClick(`http://localhost:5000/${transaction.buktiTransfer}`)}
                         >
-                          Lihat Bukti
+                          <i className="bi bi-eye"></i> {/* Ikon mata */}
                         </button>
                       )}
                     </td>

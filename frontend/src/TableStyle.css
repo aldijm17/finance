@@ -1,0 +1,49 @@
+.button {
+  border: none;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0px 15px 20px #acacac;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+/* Efek hover pada tombol */
+.button:hover {
+  /* background-color: #28fcb4; */
+  color:#883cec;
+  box-shadow: 0px 15px 20px #883cec;
+  transform: translateY(-3px);
+}
+/* Style.css */
+
+@media (max-width: 375px) {
+  body {
+    font-size: 14px; /* Sesuaikan ukuran font */
+  }
+
+  .table {
+    font-size: 12px; /* Ukuran font tabel */
+  }
+
+  .btn {
+    font-size: 14px; /* Sesuaikan tombol */
+    padding: 10px;
+  }
+
+  .form-select {
+    font-size: 12px;
+  }
+
+  .shadow-lg {
+    box-shadow: none; /* Hilangkan shadow jika diperlukan */
+  }
+
+  .container {
+    padding: 10px; /* Berikan padding kecil untuk margin */
+  }
+
+  h2 {
+    font-size: 18px; /* Header lebih kecil */
+  }
+}

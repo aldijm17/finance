@@ -5,11 +5,6 @@ import { Button, Alert } from 'react-bootstrap';
 
 function TransactionForm() {
   const navigate = useNavigate();
-  const goToTransactionForm = () => {
-    navigate('/'); // Navigates to the TransactionForm page
-    window.location.reload();
-  };
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   
@@ -20,8 +15,7 @@ function TransactionForm() {
     pengeluaran: 0,
     keterangan: '',
     jenis: '',
-    tanggal: '',
-   
+    tanggal: ''
   });
   const [buktiTransfer, setBuktiTransfer] = useState(null);
 
@@ -33,18 +27,8 @@ function TransactionForm() {
     'Beban Gaji Karyawan'
   ];
   const bulanOptions = [
-    'Januari',
-    'Februari',
-    'Maret',
-    'April',
-    'Mei',
-    'Juni',
-    'Juli',
-    'Agustus',
-    'September',
-    'Oktober',
-    'November',
-    'Desember'
+    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
   ];
 
   const handleChange = (e) => {
@@ -65,37 +49,48 @@ function TransactionForm() {
       }));
     }
   };
-const handleFileChange = (e) => {
+
+  const handleFileChange = (e) => {
     setBuktiTransfer(e.target.files[0]);
   };
+
+  // Fungsi validasi form
   const validateForm = () => {
     if (!formData.bulan) return 'Bulan harus diisi';
-    if (!formData.nama) return 'Nama transaksi harus diisi';
+    if (!formData.nama.trim()) return 'Nama transaksi harus diisi';
     if (!formData.jenis) return 'Jenis transaksi harus dipilih';
     if (!formData.tanggal) return 'Tanggal harus diisi';
     if (formData.pemasukan === 0 && formData.pengeluaran === 0) {
       return 'Masukkan nilai pemasukan atau pengeluaran';
     }
+    if (!buktiTransfer) return 'Bukti transfer harus diunggah';
     return '';
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+
+    // Validasi sebelum submit
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
     const data = new FormData();
     Object.keys(formData).forEach(key => data.append(key, formData[key]));
     if (buktiTransfer) data.append("buktiTransfer", buktiTransfer);
-  
-    // Log FormData sebelum mengirim
-    for (let [key, value] of data.entries()) {
-      console.log(`${key}:`, value);
-    }
-  
+
     try {
+      setLoading(true);
       await transactionService.createTransaction(data);
       navigate('/');
     } catch (err) {
       console.error("Error:", err.response?.data || err.message);
       setError(err.response?.data?.message || 'Terjadi kesalahan saat menyimpan transaksi');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -107,21 +102,14 @@ const handleFileChange = (e) => {
       pengeluaran: 0,
       keterangan: '',
       jenis: '',
-      tanggal: '',
-      buktiTransfer: ''
+      tanggal: ''
     });
+    setBuktiTransfer(null);
     setError('');
   };
 
   return (
     <div className="container my-4">
-      <div className="row mb-4">
-        <div className="">
-          <button onClick={goToTransactionForm} className="btn btn-danger col-md-12 fs-5 shadow-lg">
-            Kembali
-          </button>
-        </div>
-      </div>
       <div className="card p-4 shadow-sm fs-5">
         <h2 className="text-center mb-4">Tambah Data Baru</h2>
 
@@ -137,7 +125,7 @@ const handleFileChange = (e) => {
               onChange={handleChange}
               required
             >
-              <option value="">Bulan</option>
+              <option value="">Pilih Bulan</option>
               {bulanOptions.map((option) => (
                 <option key={option} value={option}>
                   {option}
@@ -219,7 +207,6 @@ const handleFileChange = (e) => {
               required
             />
           </div>
-
           <div className="mb-3">
             <label>Keterangan</label>
             <textarea
@@ -231,15 +218,13 @@ const handleFileChange = (e) => {
               placeholder="Tambahkan keterangan transaksi (opsional)"
             />
           </div>
-
           <div className="mb-3">
-            <label>Bukti Transfer</label>
+            <label>Bukti Transfer *</label>
             <input
               type="file"
               className="form-control"
-              name="buktiTransfer"
               onChange={handleFileChange}
-              
+              required
             />
           </div>
 
