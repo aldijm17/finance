@@ -195,6 +195,9 @@ function TransactionTable() {
                     Pengeluaran
                   </th>
                   <th style={{ backgroundColor: "#28fcb4" }} scope="col">
+                    Filter Pemasukan/Pengeluaran
+                  </th>
+                  <th style={{ backgroundColor: "#28fcb4" }} scope="col">
                     Keterangan
                   </th>
                   <th style={{ backgroundColor: "#28fcb4" }} scope="col">
@@ -216,15 +219,20 @@ function TransactionTable() {
                     <td>{transaction.nama}</td>
                     <td>{transaction.pemasukan}</td>
                     <td>{transaction.pengeluaran}</td>
+                    <td>
+                      {transaction.pemasukan > 0
+                        ? "Pemasukan"
+                        : transaction.pengeluaran > 0
+                        ? "Pengeluaran"
+                        : "Tidak Ada"}
+                    </td>
                     <td>{transaction.keterangan}</td>
                     <td>{transaction.jenis}</td>
-                    <td>
-                      {new Date(transaction.tanggal).toLocaleDateString()}
-                    </td>
+                    <td>{new Date(transaction.tanggal).toLocaleDateString()}</td>
                     <td>{transaction.buktiTransfer}</td>
                   </tr>
                 ))}
-              </tbody>
+          </tbody>
             </table>
           </div>
           <button onClick={handleLogout} class="col-md-12 mb-4 shadow-lg btn btn-danger fs-5">
