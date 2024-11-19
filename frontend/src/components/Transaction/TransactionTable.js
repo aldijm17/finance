@@ -13,7 +13,10 @@ function TransactionTable() {
   const goToTransactionForm = () => {
     navigate('/add');
   };
-  
+  const goToTransactionTable = () => {
+    navigate('/'); // Navigates to the TransactionForm page
+    window.location.reload();
+  };
   const [transactions, setTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [filters, setFilters] = useState({
@@ -105,7 +108,11 @@ function TransactionTable() {
       <div className="cardfilter  card mb-4 shadow-lg">
         <div className="card-body">
           <div className="row mb-3">
-            <h2>Filter Data</h2>
+            <h2>Filter Data 
+              <button onClick={goToTransactionTable} className="  btn btn-secondary fs-5 btn-sm ms-2" style={{borderRadius:'15%'}}>
+              <i class="bi bi-arrow-clockwise"></i>
+              </button>
+            </h2>
             <div className="col-md-6">
               <label>Bulan</label>
               <select
