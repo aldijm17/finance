@@ -102,7 +102,7 @@ function TransactionTable() {
           </button>
         </div>
       </div>
-      <div className="card mb-4 shadow-lg">
+      <div className="cardfilter  card mb-4 shadow-lg">
         <div className="card-body">
           <div className="row mb-3">
             <h2>Filter Data</h2>
@@ -235,8 +235,8 @@ function TransactionTable() {
               </tbody>
             </table>
           </div>
-          <button onClick={handleLogout} className="col-md-12 mb-4 shadow-lg btn btn-danger fs-5">
-            Logout
+          <button onClick={handleLogout} className="tombol col-md-12 mb-4 shadow-lg btn fs-5">
+            <b>Logout</b>
           </button>
         </div>
       </div>

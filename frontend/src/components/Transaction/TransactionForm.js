@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { transactionService } from '../../services/api';
 import { Button, Alert } from 'react-bootstrap';
+import '../../App.js';
 
 function TransactionForm() {
   const navigate = useNavigate();
+  const goToTransactionForm = () => {
+    navigate('/'); // Navigates to the TransactionForm page
+    window.location.reload();
+  };
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   
@@ -110,6 +115,13 @@ function TransactionForm() {
 
   return (
     <div className="container my-4">
+      <div className="row mb-4">
+      <div className="">
+          <button onClick={goToTransactionForm} className=" tombol btn btn-danger col-md-12 fs-5 shadow-lg">
+            Kembali
+          </button>
+        </div>
+      </div>
       <div className="card p-4 shadow-sm fs-5">
         <h2 className="text-center mb-4">Tambah Data Baru</h2>
 

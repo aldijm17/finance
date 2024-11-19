@@ -51,12 +51,13 @@
  
   cursor: pointer;
   border-radius: 8px;
-  box-shadow: 0px 15px 20px #acacac;
+  box-shadow: 0px 3px 20px #acacac;
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
 }
+
 /* Efek hover pada tombol */
 .addbutton:hover {
-
+  border:1px solid gray;
   color:#883cec;
   box-shadow: 0px 15px 20px #883cec;
   transform: translateY(-3px);
@@ -65,4 +66,23 @@
 .form-control:focus {
   border-color: #28fcb4;
   box-shadow: 0 0 8px #28fcb4;
+}
+.tombol{
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  color:red;
+}
+
+.tombol:hover {
+  background-color: red;
+  color:white;
+  box-shadow: 0px 15px 20px #4a494d;
+  transform: translateY(-3px);
+}   
+
+input, textarea, select, option{
+  box-shadow: 0px 2px 10px #acacac;
+}
+.cardfilter{
+  box-shadow: 0px 15px 20px #4a494d;
+
 }
