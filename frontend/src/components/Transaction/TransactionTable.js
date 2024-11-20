@@ -94,6 +94,7 @@ function TransactionTable() {
   };
 
   return (
+<<<<<<< Updated upstream
     <div className="container">
       <div className="row mb-4 ">
         <div className="">
@@ -105,6 +106,20 @@ function TransactionTable() {
       <div className="card mb-4 shadow-lg">
         <div className="card-body">
           <div className="row mb-3">
+=======
+    <div class="container">
+    <div class="row mb-4">
+    <div class="col-12">
+    <button className="button" type="submit" onClick={goToTransactionForm} class="btn btn btn-block shadow-lg">
+      Tambah Data
+    </button>
+     </div>
+    </div>
+
+      <div class="card mb-4 shadow-lg">
+        <div class="card-body">
+          <div class="row mb-3">
+>>>>>>> Stashed changes
             <h2>Filter Data</h2>
             <div className="col-md-6">
               <label>Bulan</label>
