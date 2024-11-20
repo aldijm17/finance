@@ -94,7 +94,7 @@ function TransactionTable() {
   };
 
   return (
-<<<<<<< Updated upstream
+
     <div className="container">
       <div className="row mb-4 ">
         <div className="">
@@ -106,7 +106,6 @@ function TransactionTable() {
       <div className="card mb-4 shadow-lg">
         <div className="card-body">
           <div className="row mb-3">
-=======
     <div class="container">
     <div class="row mb-4">
     <div class="col-12">
