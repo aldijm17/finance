@@ -11,7 +11,7 @@ function DashboardCard({ title, value, bgColor }) {
       </tr>
     </tbody>
       </table>
-      <div>
+      {/* <div>
         <table className="table table-bordered summary-section">
           <tbody>
             <tr>
@@ -40,7 +40,7 @@ function DashboardCard({ title, value, bgColor }) {
             </tr>
           </tbody>
         </table>
-      </div>
+      </div> */}
     </div>  
 );
 }
