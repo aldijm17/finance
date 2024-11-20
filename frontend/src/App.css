@@ -61,6 +61,16 @@
   color:#883cec;
   box-shadow: 0px 15px 20px #883cec;
   transform: translateY(-3px);
+  box-shadow: 0px 15px 20px #acacac;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+/* Efek hover pada tombol */
+.addbutton:hover {
+
+  color:#883cec;
+  box-shadow: 0px 15px 20px #883cec;
+  transform: translateY(-3px);
+  border: 1px solid grey;
 }      
 /* Efek focus pada input */
 .form-control:focus {
@@ -85,4 +95,55 @@ input, textarea, select, option{
 .cardfilter{
   box-shadow: 0px 15px 20px #4a494d;
 
+}
+.tombol {
+  
+  border: none;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 20px;
+  color: red;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0px 15px 20px #acacac;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+.tombol:hover {
+  background-color: red;
+  color:white;
+  box-shadow: 0px 15px 20px red;
+  transform: translateY(-3px);
+
+}
+
+/* Flexbox untuk tata letak */
+.currency-wrapper {
+  display: flex;
+  align-items: center; /* Pastikan elemen sejajar vertikal */
+  gap: 5px; /* Jarak antara "Rp" dan nominal */
+  justify-content: flex-start; /* Rata kiri */
+}
+
+/* Gaya untuk simbol "Rp" */
+.currency-symbol {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* Gaya untuk nilai nominal */
+.currency-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Media query untuk tampilan HP */
+@media (max-width: 768px) {
+  .currency-wrapper {
+    flex-direction: row; /* Tetap sejajar horizontal */
+    font-size: 0.9rem; /* Perkecil ukuran font jika perlu */
+  }
+  .summary-section th,
+  .summary-section td {
+    font-size: 0.85rem; /* Perkecil ukuran font untuk tabel */
+  }
 }
