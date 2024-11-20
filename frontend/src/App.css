@@ -86,3 +86,35 @@
   transform: translateY(-3px);
 
 }
+
+/* Flexbox untuk tata letak */
+.currency-wrapper {
+  display: flex;
+  align-items: center; /* Pastikan elemen sejajar vertikal */
+  gap: 5px; /* Jarak antara "Rp" dan nominal */
+  justify-content: flex-start; /* Rata kiri */
+}
+
+/* Gaya untuk simbol "Rp" */
+.currency-symbol {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* Gaya untuk nilai nominal */
+.currency-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Media query untuk tampilan HP */
+@media (max-width: 768px) {
+  .currency-wrapper {
+    flex-direction: row; /* Tetap sejajar horizontal */
+    font-size: 0.9rem; /* Perkecil ukuran font jika perlu */
+  }
+  .summary-section th,
+  .summary-section td {
+    font-size: 0.85rem; /* Perkecil ukuran font untuk tabel */
+  }
+}

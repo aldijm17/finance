@@ -199,14 +199,32 @@ function TransactionTable() {
                   <th style={{ backgroundColor: "#28fcb4" }} scope="col">Bukti TF</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody style={{ fontSize: '0.9rem' }}> 
                 {filteredTransactions.map((transaction, index) => (
                   <tr key={transaction.id}>
                     <td>{index + 1}</td>
                     <td>{transaction.bulan}</td>
                     <td>{transaction.nama}</td>
-                    <td>{transaction.pemasukan}</td>
-                    <td>{transaction.pengeluaran}</td>
+                    <td>
+                      {transaction.pemasukan > 0 ? (
+                        <div className="d-flex align-items-center justify-content-end">
+                          <span>Rp</span>
+                          <span className="ms-1">{transaction.pemasukan.toLocaleString('id-ID')}</span>
+                        </div>
+                      ) : (
+                        "-"
+                      )}
+                    </td>
+                    <td>
+                      {transaction.pengeluaran > 0 ? (
+                        <div className="d-flex align-items-center justify-content-end">
+                          <span>Rp</span>
+                          <span className="ms-1">{transaction.pengeluaran.toLocaleString('id-ID')}</span>
+                        </div>
+                      ) : (
+                        "-"
+                      )}
+                    </td>
                     <td>
                       {transaction.pemasukan > 0
                         ? "Pemasukan"

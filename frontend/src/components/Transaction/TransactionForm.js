@@ -4,7 +4,6 @@ import { transactionService } from '../../services/api';
 import { Button, Alert } from 'react-bootstrap';
 import '../../App.css';
 
-
 function TransactionForm() {
   const navigate = useNavigate();
   const goToTransactionForm = () => {
@@ -17,12 +16,12 @@ function TransactionForm() {
   const [formData, setFormData] = useState({
     bulan: '',
     nama: '',
-    pemasukan: 0,
-    pengeluaran: 0,
+    pemasukan: '',
+    pengeluaran: '',
     keterangan: '',
     jenis: '',
     tanggal: '',
-    buktiTransfer: null, // Set to null initially, as it's no longer a text
+    buktiTransfer: null,
   });
   const [preview, setPreview] = useState('');
 
@@ -39,16 +38,26 @@ function TransactionForm() {
     'Agustus', 'September', 'Oktober', 'November', 'Desember'
   ];
 
+  const formatNumber = (value) => {
+    if (!value) return '';
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  };
+
+  const unformatNumber = (value) => {
+    return value.replace(/\./g, '');
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     if (name === 'pemasukan' || name === 'pengeluaran') {
-      const numValue = value === '' ? 0 : parseFloat(value);
-      if (isNaN(numValue)) return;
+      const rawValue = unformatNumber(value);
+      if (isNaN(rawValue)) return;
 
       setFormData((prev) => ({
         ...prev,
-        [name]: numValue,
-        [name === 'pemasukan' ? 'pengeluaran' : 'pemasukan']: 0
+        [name]: rawValue, // Simpan angka tanpa format
+        [name === 'pemasukan' ? 'pengeluaran' : 'pemasukan']: '', // Reset input lainnya
       }));
     } else if (name === 'buktiTransfer') {
       const file = e.target.files[0];
@@ -58,7 +67,6 @@ function TransactionForm() {
           buktiTransfer: file,
         }));
 
-        // Generate a preview URL for the selected image
         const objectUrl = URL.createObjectURL(file);
         setPreview(objectUrl);
       }
@@ -75,7 +83,7 @@ function TransactionForm() {
     if (!formData.nama) return 'Nama transaksi harus diisi';
     if (!formData.jenis) return 'Jenis transaksi harus dipilih';
     if (!formData.tanggal) return 'Tanggal harus diisi';
-    if (formData.pemasukan === 0 && formData.pengeluaran === 0) {
+    if (formData.pemasukan === '' && formData.pengeluaran === '') {
       return 'Masukkan nilai pemasukan atau pengeluaran';
     }
     if (!formData.buktiTransfer) {
@@ -96,8 +104,7 @@ function TransactionForm() {
 
     try {
       setLoading(true);
-      
-      // Prepare form data for submission
+
       const data = new FormData();
       for (const key in formData) {
         if (formData[key] instanceof File) {
@@ -109,7 +116,7 @@ function TransactionForm() {
 
       await transactionService.createTransaction(data);
       navigate('/');
-      window.location.reload(); // Refreshes the page
+      window.location.reload();
     } catch (err) {
       setError(err.response?.data?.message || 'Terjadi kesalahan saat menyimpan transaksi');
     } finally {
@@ -121,8 +128,8 @@ function TransactionForm() {
     setFormData({
       bulan: '',
       nama: '',
-      pemasukan: 0,
-      pengeluaran: 0,
+      pemasukan: '',
+      pengeluaran: '',
       keterangan: '',
       jenis: '',
       tanggal: '',
@@ -136,7 +143,7 @@ function TransactionForm() {
     <div className="container my-4">
       <div className="row mb-4">
         <div className="">
-          <button onClick={goToTransactionForm} className=" tombol btn btn-danger text-light col-md-12 fs-5 shadow-lg">
+          <button type="button" onClick={goToTransactionForm} className="tombol btn btn-danger text-light fs-5 shadow-lg">
             Kembali
           </button>
         </div>
@@ -200,13 +207,11 @@ function TransactionForm() {
             <div className="col-md-6">
               <label>Pemasukan</label>
               <input
-                type="number"
+                type="text"
                 className="form-control"
                 name="pemasukan"
-                value={formData.pemasukan}
+                value={formatNumber(formData.pemasukan)}
                 onChange={handleChange}
-                min="0"
-                step="0.01"
                 placeholder="Rp"
                 disabled={formData.pengeluaran > 0}
               />
@@ -214,13 +219,11 @@ function TransactionForm() {
             <div className="col-md-6">
               <label>Pengeluaran</label>
               <input
-                type="number"
+                type="text"
                 className="form-control"
                 name="pengeluaran"
-                value={formData.pengeluaran}
+                value={formatNumber(formData.pengeluaran)}
                 onChange={handleChange}
-                min="0"
-                step="0.01"
                 placeholder="Rp"
                 disabled={formData.pemasukan > 0}
               />
