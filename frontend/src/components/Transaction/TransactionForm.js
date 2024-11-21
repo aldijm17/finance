@@ -36,16 +36,23 @@ function TransactionForm() {
     'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
   ];
 
+  // Fungsi untuk format angka
+  const formatCurrency = (number) => {
+    if (!number) return '';
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === 'pemasukan' || name === 'pengeluaran') {
-      const numValue = value === '' ? 0 : parseFloat(value);
+      const rawValue = value.replace(/\./g, '').replace('Rp ', ''); // Menghapus format sebelumnya
+      const numValue = rawValue === '' ? 0 : parseInt(rawValue, 10);
       if (isNaN(numValue)) return;
 
       setFormData((prev) => ({
         ...prev,
         [name]: numValue,
-        [name === 'pemasukan' ? 'pengeluaran' : 'pemasukan']: 0
+        [name === 'pemasukan' ? 'pengeluaran' : 'pemasukan']: 0 // Reset field lain
       }));
     } else {
       setFormData((prev) => ({
@@ -116,8 +123,8 @@ function TransactionForm() {
   return (
     <div className="container my-4">
       <div className="row mb-4">
-      <div className="">
-          <button onClick={goToTransactionForm} className=" tombol btn btn-danger col-md-12 fs-5 shadow-lg">
+        <div className="">
+          <button onClick={goToTransactionForm} className="tombol btn btn-danger col-md-12 fs-5 shadow-lg">
             Kembali
           </button>
         </div>
@@ -181,13 +188,11 @@ function TransactionForm() {
             <div className="col-md-6">
               <label>Pemasukan</label>
               <input
-                type="number"
+                type="text"
                 className="form-control"
                 name="pemasukan"
-                value={formData.pemasukan}
+                value={formData.pemasukan > 0 ? `Rp ${formatCurrency(formData.pemasukan)}` : ''}
                 onChange={handleChange}
-                min="0"
-                step="0.01"
                 placeholder="Rp"
                 disabled={formData.pengeluaran > 0}
               />
@@ -195,13 +200,11 @@ function TransactionForm() {
             <div className="col-md-6">
               <label>Pengeluaran</label>
               <input
-                type="number"
+                type="text"
                 className="form-control"
                 name="pengeluaran"
-                value={formData.pengeluaran}
+                value={formData.pengeluaran > 0 ? `Rp ${formatCurrency(formData.pengeluaran)}` : ''}
                 onChange={handleChange}
-                min="0"
-                step="0.01"
                 placeholder="Rp"
                 disabled={formData.pemasukan > 0}
               />
