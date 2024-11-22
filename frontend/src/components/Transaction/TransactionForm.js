@@ -6,6 +6,10 @@ import '../../App.css';
 
 function TransactionForm() {
   const navigate = useNavigate();
+  const goToTransactionForm = () => {
+    navigate('/'); // Navigates to the TransactionForm page
+    window.location.reload();
+  };
   const fileInputRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -180,11 +184,14 @@ function TransactionForm() {
 
   return (
     <div className="container my-4">
+      <button onClick={goToTransactionForm} type='submit' className="tombol btn btn-danger btn-sm mb-3 text-light fs-5 shadow-lg">
+        <i className="bi bi-arrow-left"></i>
+        </button>
       <div className="card p-4 shadow-lg">
         <h2 className="text-center mb-4">Tambah Data Transaksi</h2>
 
         {error && <Alert variant="danger">{error}</Alert>}
-
+        
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label">Bulan *</label>
