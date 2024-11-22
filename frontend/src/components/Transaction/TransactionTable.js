@@ -9,6 +9,11 @@ function TransactionTable() {
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
   const [showModal, setShowModal] = useState(false);
+
+  const formatCurrency = (value) => {
+    if (value === 0.00) return "-";
+    return value.toLocaleString("id-ID"); // Format angka dengan titik setiap tiga digit
+  };
   
   const goToTransactionForm = () => {
     navigate('/add');
@@ -207,39 +212,40 @@ function TransactionTable() {
                 </tr>
               </thead>
               <tbody>
-                {filteredTransactions.map((transaction, index) => (
-                  <tr key={transaction.id}>
-                    <td>{index + 1}</td>
-                    <td>{transaction.bulan}</td>
-                    <td>{transaction.nama}</td>
-                    <td>{transaction.pemasukan}</td>
-                    <td>{transaction.pengeluaran}</td>
-                    <td>
-                      {transaction.pemasukan > 0
-                        ? "Pemasukan"
-                        : transaction.pengeluaran > 0
-                        ? "Pengeluaran"
-                        : "Tidak Ada"}
-                    </td>
-                    <td>{transaction.keterangan}</td>
-                    <td>{transaction.jenis}</td>
-                    <td>{new Date(transaction.tanggal).toLocaleDateString()}</td>
-                    <td className="text-center">
-                      {transaction.buktiTransfer && (
-                        <button 
-                          className="btn shadow-lg text-white"
-                          style={{
-                            backgroundColor:'#883cec',
-                          }}
-                          onClick={() => handleImageClick(`http://localhost:5000/${transaction.buktiTransfer}`)}
-                        >
-                          <i className="bi bi-eye"></i> {/* Ikon mata */}
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+  {filteredTransactions.map((transaction, index) => (
+    <tr key={transaction.id}>
+      <td>{index + 1}</td>
+      <td>{transaction.bulan}</td>
+      <td>{transaction.nama}</td>
+      <td>{formatCurrency(transaction.pemasukan)}</td>
+      <td>{formatCurrency(transaction.pengeluaran)}</td>
+      <td>
+        {transaction.pemasukan > 0
+          ? "Pemasukan"
+          : transaction.pengeluaran > 0
+          ? "Pengeluaran"
+          : "Tidak Ada"}
+      </td>
+      <td>{transaction.keterangan}</td>
+      <td>{transaction.jenis}</td>
+      <td>{new Date(transaction.tanggal).toLocaleDateString()}</td>
+      <td className="text-center">
+        {transaction.buktiTransfer && (
+          <button 
+            className="btn shadow-lg text-white"
+            style={{
+              backgroundColor:'#883cec',
+            }}
+            onClick={() => handleImageClick(`http://localhost:5000/${transaction.buktiTransfer}`)}
+          >
+            <i className="bi bi-eye"></i>
+          </button>
+        )}
+      </td>
+    </tr>
+  ))}
+</tbody>
+
             </table>
           </div>
           <button onClick={handleLogout} className="tombol col-md-12 mb-4 shadow-lg btn fs-5">
