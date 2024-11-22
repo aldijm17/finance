@@ -9,12 +9,10 @@ function TransactionTable() {
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
   const [showModal, setShowModal] = useState(false);
-
-  const formatCurrency = (value) => {
-    if (value === 0.00) return "-";
-    return value.toLocaleString("id-ID"); // Format angka dengan titik setiap tiga digit
-  };
   
+  function formatCurrency(amount) {
+    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(amount);
+  }
   const goToTransactionForm = () => {
     navigate('/add');
   };
