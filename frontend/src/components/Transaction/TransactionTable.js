@@ -112,7 +112,7 @@ function TransactionTable() {
         <div className="card-body">
           <div className="row mb-3">
             <h2>Filter Data 
-              <button onClick={goToTransactionTable} className="  btn btn-secondary fs-5 btn-sm ms-2" style={{borderRadius:'15%'}}>
+              <button onClick={goToTransactionTable} className="  btn btn-secondary fs-5 btn-sm ms-2" style={{borderRadius:'45%'}}>
               <i class="bi bi-arrow-clockwise"></i>
               </button>
             </h2>
@@ -122,7 +122,7 @@ function TransactionTable() {
                 name="bulan"
                 value={filters.bulan}
                 onChange={handleFilterChange}
-                className="form-select"
+                className="form-select" 
               >
                 <option value="">Semua Bulan</option>
                 {[
@@ -197,7 +197,7 @@ function TransactionTable() {
             <table className="table table-striped table-bordered">
               <thead>
                 <tr>
-                  <th style={{ backgroundColor: "#28fcb4" }} scope="col">No</th>
+                  <th style={{ backgroundColor: "#  " }} scope="col">No</th>
                   <th style={{ backgroundColor: "#28fcb4" }} scope="col">Bulan</th>
                   <th style={{ backgroundColor: "#28fcb4" }} scope="col">Nama</th>
                   <th style={{ backgroundColor: "#28fcb4" }} scope="col">Pemasukan</th>

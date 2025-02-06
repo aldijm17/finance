@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from './components/Dashboard/Dashboard';
 import Login from './components/Login/Login';
 import TransactionForm from './components/Transaction/TransactionForm';
-// import TransactionTable from './components/Transaction/TransactionTable';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthService from './services/api';
 
@@ -19,17 +18,16 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={
             <PrivateRoute>
-              <Dashboard />
+              <Dashboard /> 
             </PrivateRoute>
           } />
-        {/* <Route path="/transactions" element={<TransactionTable />} /> */}
         <Route path="/add" element={
             <PrivateRoute>
             <TransactionForm />
             </PrivateRoute>
           } />
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter>  
   );
 }
 

@@ -188,7 +188,7 @@ function TransactionForm() {
         <i className="bi bi-arrow-left"></i>
         </button>
       <div className="card p-4 shadow-lg">
-        <h2 className="text-center mb-4">Tambah Data Transaksi</h2>
+        <h2 className="text-center mb-4">Tambah Data Keuangan</h2>
 
         {error && <Alert variant="danger">{error}</Alert>}
         
@@ -333,12 +333,12 @@ function TransactionForm() {
             </small>
           </div>
 
-          <div className="d-flex justify-content-end">
+          <div className="d-flex justify-content-center">
             <Button 
               variant="secondary" 
               type="button"
               onClick={handleReset} 
-              className="me-2"
+              className="me-2 col-md-6 resetbutton"
             >
               Reset
             </Button>
@@ -346,6 +346,7 @@ function TransactionForm() {
               type="submit" 
               variant="primary" 
               disabled={loading}
+              className="col-md-6 savebutton"
             >
               {loading ? 'Menyimpan...' : 'Simpan Transaksi'}
             </Button>

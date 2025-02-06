@@ -70,7 +70,7 @@ function Dashboard() {
                   bgColor="bg-red-100"
                 />
                 <DashboardCard
-                  title="Total Beban Operasional"
+                  title="Total Beban Gaji Karyawan"
                   value={summary.bebanGajiKaryawan}
                   bgColor="bg-red-100"
                 />

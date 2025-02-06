@@ -6,11 +6,11 @@ const User = db.users;
 async function seedAdmin() {
   try {
     const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash('admin2#123', saltRounds);
+    const hashedPassword = await bcrypt.hash('admin#123', saltRounds);
 
     // Create admin user
     const admin = await User.create({
-      username: 'admin2',
+      username: 'admin3',
       password: hashedPassword
     });
 
